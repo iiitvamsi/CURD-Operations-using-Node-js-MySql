@@ -58,9 +58,10 @@ app.post('/employees',(req,res)=>{
     var sql = "SET @EmpID = ?;SET @Name = ?;SET @EmpCode = ?;SET @Salary = ?;CALL EmployeeAddOrEdit(@EmpID,@Name,@EmpCode,@Salary);";
     mysqlConnection.query(sql,[emp.EmpID, emp.Name, emp.EmpCode,emp.Salary],(err,rows,fileds)=>{
         if(!err)
+            // res.send(rows);
             rows.forEach(element =>{
                 if(element.constructor == Array)
-                res.send('Inserted Employee ID:'+element[0].EmpID);
+                res.send(JSON.stringify('Inserted Employee ID:'+element[0].EmpID));
             });
         else
         console.log(err);
